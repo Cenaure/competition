@@ -7,6 +7,7 @@ import { buildConfig } from 'payload'
 import { fileURLToPath } from 'url'
 import sharp from 'sharp'
 import { uk } from '@payloadcms/translations/languages/uk'
+import { vercelBlobStorage } from '@payloadcms/storage-vercel-blob'
 
 import { Users } from './collections/Users'
 import { Media } from './collections/Media'
@@ -33,7 +34,14 @@ export default buildConfig({
   sharp,
   plugins: [
     payloadCloudPlugin(),
-    // storage-adapter-placeholder
+
+    vercelBlobStorage({
+      enabled: true, // Optional, defaults to true
+      collections: {
+        media: true,
+      },
+      token: process.env.BLOB_READ_WRITE_TOKEN,
+    }),
   ],
   i18n: {
     fallbackLanguage: 'uk',
@@ -43,4 +51,5 @@ export default buildConfig({
     locales: ['uk'], // required
     defaultLocale: 'uk', // required
   },
+  cors: '*',
 })
