@@ -6,6 +6,7 @@ import path from 'path'
 import { buildConfig } from 'payload'
 import { fileURLToPath } from 'url'
 import sharp from 'sharp'
+import { uk } from '@payloadcms/translations/languages/uk'
 
 import { Users } from './collections/Users'
 import { Media } from './collections/Media'
@@ -34,4 +35,12 @@ export default buildConfig({
     payloadCloudPlugin(),
     // storage-adapter-placeholder
   ],
+  i18n: {
+    fallbackLanguage: 'uk',
+    supportedLanguages: { uk },
+  },
+  localization: {
+    locales: ['uk'], // required
+    defaultLocale: 'uk', // required
+  },
 })
