@@ -7,7 +7,6 @@ const nextConfig = {
       {
         protocol: 'https',
         hostname: 'competition-green.vercel.app',
-        pathname: '/api/media/**',
       },
     ],
   },
