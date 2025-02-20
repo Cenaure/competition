@@ -25,10 +25,7 @@ const LoginForm = (): ReactElement => {
         <CardContent>
           <form className="space-y-6" action={action}>
             <div>
-              <label
-                htmlFor="email"
-                className="block text-sm font-medium text-gray-700"
-              >
+              <label htmlFor="email" className="block text-sm font-medium">
                 Пошта
               </label>
               <Input
@@ -42,10 +39,7 @@ const LoginForm = (): ReactElement => {
             </div>
 
             <div>
-              <label
-                htmlFor="password"
-                className="block text-sm font-medium text-gray-700"
-              >
+              <label htmlFor="password" className="block text-sm font-medium">
                 Пароль
               </label>
               <Input

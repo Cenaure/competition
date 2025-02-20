@@ -2,8 +2,7 @@
 
 import { User } from "@/payload-types";
 import { cookies } from "next/headers";
-import { getPayload } from "payload";
-import config from "@/payload.config";
+import { payload } from "@/lib/payload";
 
 interface LoginResponse {
   success: boolean;
@@ -26,8 +25,6 @@ export async function login(
   if (!email || !password) {
     return { success: false, error: "Email та пароль обов'язкові" };
   }
-
-  const payload = await getPayload({ config });
 
   try {
     const result: Result = await payload.login({

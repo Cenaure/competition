@@ -1,8 +1,7 @@
 "use server";
 
 import { cookies } from "next/headers";
-import { getPayload } from "payload";
-import config from "@/payload.config";
+import { payload } from "@/lib/payload";
 
 interface RegistrationResponse {
   success: boolean;
@@ -20,10 +19,7 @@ export async function registration(
     return { success: false, error: "Email та пароль обов'язкові" };
   }
 
-  const payload = await getPayload({ config });
-
   try {
-    // Создание пользователя
     const user = await payload.create({
       collection: "users",
       data: { email, password },
@@ -33,7 +29,6 @@ export async function registration(
       return { success: false, error: "Не вдалося створити користувача" };
     }
 
-    // Аутентификация, чтобы получить токен
     const loginResult = await payload.login({
       collection: "users",
       data: { email, password },
@@ -43,7 +38,6 @@ export async function registration(
       return { success: false, error: "Не вдалося отримати токен" };
     }
 
-    // Устанавливаем токен в куки
     const cookieStore = await cookies();
     cookieStore.set("payload-token", loginResult.token, {
       httpOnly: true,

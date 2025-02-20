@@ -4,7 +4,7 @@ import Link from "next/link";
 const Header = () => {
   return (
     <header
-      className="col-end-17 col-start-1 border-solid bg-inherit sticky w-full top-0"
+      className="col-end-17 col-start-1 border-solid bg-inherit sticky w-full top-0 z-2"
       style={{ borderBottomWidth: "1px" }}
     >
       <div className="mx-auto max-w-[1440px] flex justify-between p-4">
@@ -15,7 +15,7 @@ const Header = () => {
           <h1>Beyond Earth</h1>
         </div>
 
-        <div className="col-start-10 items-center flex gap-2 md:flex hidden">
+        <div className="col-start-10 items-center flex space-x-4 md:flex hidden">
           <Link href="/">Друга сторінка</Link>
           <Link href="/">Третя сторінка</Link>
           <Link href="/auth">Вхід</Link>

@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
-import { GeistSans } from "geist/font/sans";
+import { Manrope } from "next/font/google";
 import "./globals.css";
+
+const font = Manrope({ subsets: ["latin", "cyrillic"], weight: "400" });
 
 export const metadata: Metadata = {
   title: "Beyond Earth",
@@ -12,7 +14,7 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="uk">
-      <body className={`${GeistSans.className} antialiased`}>{children}</body>
+      <body className={`${font.className} antialiased`}>{children}</body>
     </html>
   );
 }
