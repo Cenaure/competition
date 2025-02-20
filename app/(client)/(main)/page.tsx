@@ -16,6 +16,11 @@ export default async function HomePage() {
   const { user } = await payload.auth({ headers });
   console.log(user);
 
+  const slides = await payload.find({
+    collection: "slider-items",
+    sort: "order",
+  });
+
   return (
     <div>
       <BackgroundVideo />
@@ -25,7 +30,7 @@ export default async function HomePage() {
         </div>
       </div>
 
-      <ColonizationInfo />
+      <ColonizationInfo slides={slides} />
 
       {/* <div className="mt-24 grid grid-cols-1 md:grid-cols-3 gap-8">
           <FeatureCard

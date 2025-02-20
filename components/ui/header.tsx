@@ -10,7 +10,7 @@ const Header = () => {
       <div className="mx-auto max-w-[1440px] flex justify-between p-4">
         <div className="flex relative gap-2">
           <div className="relative w-10">
-            <Image objectFit="contain" fill src="/favicon.svg" alt="logo" />
+            <Image objectFit="contain" fill src="/favicon.png" alt="logo" />
           </div>
           <h1>Beyond Earth</h1>
         </div>

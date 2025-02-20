@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 const Hero = () => {
   return (
     <div className="space-y-6 mb-40">
@@ -8,9 +10,12 @@ const Hero = () => {
       <p className="text-xl opacity-100 z-0">
         Стань частиною космічної цивілізації, до якої прямує людство.
       </p>
-      <button className="bg-primary text-black px-8 py-3 rounded-full text-lg font-semibold hover:opacity-80 transition duration-300 cursor-pointer">
+      <Link
+        href="#colonization"
+        className="bg-primary text-black px-8 py-3 rounded-full text-lg font-semibold hover:opacity-80 transition duration-300 cursor-pointer inline-block"
+      >
         Розпочати подорож
-      </button>
+      </Link>
     </div>
   );
 };
