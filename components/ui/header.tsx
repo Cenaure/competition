@@ -4,15 +4,15 @@ import Link from "next/link";
 const Header = () => {
   return (
     <header
-      className="col-end-17 col-start-1 border-solid"
+      className="col-end-17 col-start-1 border-solid bg-inherit sticky w-full top-0"
       style={{ borderBottomWidth: "1px" }}
     >
       <div className="mx-auto max-w-[1440px] flex justify-between p-4">
-        <div className="flex relative">
+        <div className="flex relative gap-2">
           <div className="relative w-10">
-            <Image objectFit="contain" fill src="/payloadLogo.png" alt="logo" />
+            <Image objectFit="contain" fill src="/favicon.svg" alt="logo" />
           </div>
-          <h1>Вебсайт</h1>
+          <h1>Beyond Earth</h1>
         </div>
 
         <div className="col-start-10 items-center flex gap-2 md:flex hidden">

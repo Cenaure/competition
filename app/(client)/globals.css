@@ -7,15 +7,13 @@ body {
 }
 
 :root {
-  --color-primary: #2f4156;
+  --color-primary: #030a11;
   --color-secondary: #a3a07c;
-  --color-accent: #815b5b;
+  --color-accent: #FFC700;
   --color-dark: #1e1e1e;
-  --color-light: #f8f7f4;
 
   --color-muted: #c8ab83;
-  --color-text: #2b2b2b;
-  --color-text-light: #ffffff;
+  --color-text: #E2E2B6;
 }
 
 * {
@@ -115,8 +113,8 @@ a {
 
 @layer base {
   :root {
-    --background: 28 52% 94%;
-    --foreground: 0 0% 3.9%;
+    --background: 210 70% 3.9%;
+    --foreground: 60, 43.1, 80;
     --card: 0 0% 100%;
     --card-foreground: 0 0% 3.9%;
     --popover: 0 0% 100%;
@@ -131,7 +129,7 @@ a {
     --accent-foreground: 0 0% 9%;
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
-    --border: 0 12% 69.8%;
+    --border: 0 0% 12.8%;
     --input: 0 0% 89.8%;
     --ring: 0 0% 3.9%;
     --chart-1: 12 76% 61%;
