@@ -17,7 +17,7 @@ const Parallax = ({
 }>) => {
   const trigger = useRef<HTMLDivElement | null>(null);
   const target = useRef<HTMLDivElement | null>(null);
-  const timeline = useRef<any>(null);
+  const timeline = useRef<GSAPTimeline>(null);
   const windowWidth = window.screen.width;
 
   useEffect(() => {
