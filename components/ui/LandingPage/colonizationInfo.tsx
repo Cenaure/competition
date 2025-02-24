@@ -80,7 +80,7 @@ const ColonizationInfo = ({
 
   return (
     <section id="colonization">
-      <div className="px-4 container mx-auto max-w-[1440px] justify-center relative lg:sticky lg:top-20 mb-20 lg:mb-0">
+      <div className="px-4 container mx-auto max-w-[1440px] justify-center relative mb-20 lg:mb-0">
         <h2 className="">
           Колонізація Марса: мрія чи{" "}
           <span ref={realityRef} className="inline-block">
@@ -105,10 +105,12 @@ const ColonizationInfo = ({
                   className="space-y-4 basis-[50%]"
                   dangerouslySetInnerHTML={{ __html: slide.content || "" }}
                 />
-                <div className="relative w-full min-h-max lg:h-screen basis-[50%]">
+                <div className="relative w-full lg:h-screen basis-[50%] rounded-lg overflow-hidden place-content-center">
                   <Image
+                    className="w-full rounded-lg"
                     src={slide.img}
-                    fill
+                    width={800}
+                    height={600}
                     style={{ objectFit: "contain" }}
                     alt="Mars"
                   />

@@ -84,8 +84,12 @@ export interface Config {
   db: {
     defaultIDType: string;
   };
-  globals: {};
-  globalsSelect: {};
+  globals: {
+    cards: Card;
+  };
+  globalsSelect: {
+    cards: CardsSelect<false> | CardsSelect<true>;
+  };
   locale: 'uk';
   user: User & {
     collection: 'users';
@@ -297,6 +301,40 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
   batch?: T;
   updatedAt?: T;
   createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "cards".
+ */
+export interface Card {
+  id: string;
+  items: {
+    title: string;
+    shortText: string;
+    fullText: string;
+    imgUrl: string | Media;
+    id?: string | null;
+  }[];
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "cards_select".
+ */
+export interface CardsSelect<T extends boolean = true> {
+  items?:
+    | T
+    | {
+        title?: T;
+        shortText?: T;
+        fullText?: T;
+        imgUrl?: T;
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

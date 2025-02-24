@@ -11,6 +11,7 @@ import { vercelBlobStorage } from "@payloadcms/storage-vercel-blob";
 import { Users } from "./collections/Users";
 import { Media } from "./collections/Media";
 import { SliderItems } from "./collections/SliderItems";
+import { Cards } from "./globals/Cards";
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
@@ -23,6 +24,7 @@ export default buildConfig({
     },
   },
   collections: [Users, Media, SliderItems],
+  globals: [Cards],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || "",
   typescript: {

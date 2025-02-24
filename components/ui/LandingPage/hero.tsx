@@ -1,4 +1,4 @@
-import Link from "next/link";
+import LandingButton from "./landingButton";
 
 const Hero = () => {
   return (
@@ -10,12 +10,7 @@ const Hero = () => {
       <p className="text-xl opacity-100 z-0">
         Стань частиною космічної цивілізації, до якої прямує людство.
       </p>
-      <Link
-        href="#colonization"
-        className="bg-primary text-black px-8 py-3 rounded-full text-lg font-semibold hover:opacity-80 transition duration-300 cursor-pointer inline-block"
-      >
-        Розпочати подорож
-      </Link>
+      <LandingButton />
     </div>
   );
 };
