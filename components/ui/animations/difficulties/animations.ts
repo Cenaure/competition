@@ -68,7 +68,7 @@ export const animateCardReveal = () => {
           card.classList.add(
             "absolute",
             "w-1/2",
-            "left-[-10]",
+            "left-0",
             "h-screen",
             "top-0",
             "z-[10]",
@@ -146,8 +146,8 @@ export const animateCardReveal = () => {
         if (!card) return;
 
         const state = Flip.getState(card);
-        card.classList.remove("left-[-10]");
-        card.classList.add("right-[-10]");
+        card.classList.remove("left-0");
+        card.classList.add("right-0");
 
         const div = document.getElementById("innerContent");
 
@@ -180,8 +180,8 @@ export const animateCardReveal = () => {
         if (!card) return;
         const state = Flip.getState(card);
 
-        card.classList.remove("right-[-10]");
-        card.classList.add("left-[-10]");
+        card.classList.remove("right-0");
+        card.classList.add("left-0");
 
         const div = document.getElementById("innerContent");
 
@@ -288,8 +288,8 @@ export const animateCardReveal = () => {
         if (!card) return;
 
         const state = Flip.getState(card);
-        card.classList.remove("right-[-10]");
-        card.classList.add("left-[-10]");
+        card.classList.remove("right-0");
+        card.classList.add("left-0");
 
         const div = document.getElementById("innerContent");
 
@@ -322,8 +322,8 @@ export const animateCardReveal = () => {
         if (!card) return;
         const state = Flip.getState(card);
 
-        card.classList.remove("left-[-10]");
-        card.classList.add("right-[-10]");
+        card.classList.remove("left-0");
+        card.classList.add("right-0");
 
         const div = document.getElementById("innerContent");
 
@@ -431,8 +431,8 @@ export const animateCardReveal = () => {
         if (!card) return;
 
         const state = Flip.getState(card);
-        card.classList.remove("left-[-10]");
-        card.classList.add("right-[-10]");
+        card.classList.remove("left-0");
+        card.classList.add("right-0");
 
         const div = document.getElementById("innerContent");
 
@@ -465,8 +465,8 @@ export const animateCardReveal = () => {
         if (!card) return;
         const state = Flip.getState(card);
 
-        card.classList.remove("right-[-10]");
-        card.classList.add("left-[-10]");
+        card.classList.remove("right-0");
+        card.classList.add("left-0");
 
         const div = document.getElementById("innerContent");
 

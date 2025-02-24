@@ -18,9 +18,10 @@ const Parallax = ({
   const trigger = useRef<HTMLDivElement | null>(null);
   const target = useRef<HTMLDivElement | null>(null);
   const timeline = useRef<GSAPTimeline>(null);
-  const windowWidth = window.screen.width;
+  let windowWidth;
 
   useEffect(() => {
+    windowWidth = window.screen.width;
     gsap.registerPlugin(ScrollTrigger);
 
     const y = windowWidth * speed * 0.1;
