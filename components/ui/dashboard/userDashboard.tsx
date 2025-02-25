@@ -59,7 +59,7 @@ export function UserDashboard({ user }: { user: User }) {
                       {(user.avatar as Media)?.url && (
                         <AvatarImage
                           src={(user.avatar as Media).url || ""}
-                          alt={user.name}
+                          alt={user.name || ""}
                         />
                       )}
                       <AvatarFallback>{user.name?.charAt(0)}</AvatarFallback>
@@ -74,7 +74,11 @@ export function UserDashboard({ user }: { user: User }) {
                   </div>
                   <div className="grid gap-2">
                     <Label htmlFor="name">Ім{"'"}я</Label>
-                    <Input id="name" name="name" defaultValue={user.name} />
+                    <Input
+                      id="name"
+                      name="name"
+                      defaultValue={user.name || ""}
+                    />
                   </div>
                   <div className="grid gap-2">
                     <Label htmlFor="email">Пошта</Label>

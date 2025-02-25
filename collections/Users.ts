@@ -12,6 +12,7 @@ export const Users: CollectionConfig = {
       name: "name",
       type: "text",
       label: "Ім'я",
+      required: true,
     },
     {
       name: "avatar",
