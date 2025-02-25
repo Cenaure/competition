@@ -86,9 +86,13 @@ export interface Config {
   };
   globals: {
     cards: Card;
+    conclusion: Conclusion;
+    footer: Footer;
   };
   globalsSelect: {
     cards: CardsSelect<false> | CardsSelect<true>;
+    conclusion: ConclusionSelect<false> | ConclusionSelect<true>;
+    footer: FooterSelect<false> | FooterSelect<true>;
   };
   locale: 'uk';
   user: User & {
@@ -123,6 +127,9 @@ export interface UserAuthOperations {
  */
 export interface User {
   id: string;
+  name?: string | null;
+  avatar?: (string | null) | Media;
+  role: 'admin' | 'user';
   updatedAt: string;
   createdAt: string;
   email: string;
@@ -231,6 +238,9 @@ export interface PayloadMigration {
  * via the `definition` "users_select".
  */
 export interface UsersSelect<T extends boolean = true> {
+  name?: T;
+  avatar?: T;
+  role?: T;
   updatedAt?: T;
   createdAt?: T;
   email?: T;
@@ -320,6 +330,41 @@ export interface Card {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "conclusion".
+ */
+export interface Conclusion {
+  id: string;
+  text: string;
+  quote: string;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "footer".
+ */
+export interface Footer {
+  id: string;
+  copyright: string;
+  links?:
+    | {
+        label: string;
+        url: string;
+        id?: string | null;
+      }[]
+    | null;
+  socials?:
+    | {
+        platform?: (string | null) | Media;
+        url?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "cards_select".
  */
 export interface CardsSelect<T extends boolean = true> {
@@ -330,6 +375,41 @@ export interface CardsSelect<T extends boolean = true> {
         shortText?: T;
         fullText?: T;
         imgUrl?: T;
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "conclusion_select".
+ */
+export interface ConclusionSelect<T extends boolean = true> {
+  text?: T;
+  quote?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "footer_select".
+ */
+export interface FooterSelect<T extends boolean = true> {
+  copyright?: T;
+  links?:
+    | T
+    | {
+        label?: T;
+        url?: T;
+        id?: T;
+      };
+  socials?:
+    | T
+    | {
+        platform?: T;
+        url?: T;
         id?: T;
       };
   updatedAt?: T;

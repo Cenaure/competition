@@ -22,7 +22,7 @@ export async function registration(
   try {
     const user = await payload.create({
       collection: "users",
-      data: { email, password },
+      data: { email, password, role: "user", name: "user" },
     });
 
     if (!user) {

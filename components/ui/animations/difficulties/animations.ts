@@ -17,7 +17,6 @@ export const animateCardReveal = () => {
       trigger: "#difficultiesInfo",
       start: "center center",
       end: "+=1000%",
-      markers: true,
       pin: true,
       scrub: 1,
       snap: {
@@ -129,7 +128,12 @@ export const animateCardReveal = () => {
     .fromTo(
       "#card1Img",
       { x: 800, opacity: 0 },
-      { x: 0, duration: 6, opacity: 1, ease: "expo.in" },
+      {
+        x: 0,
+        duration: 6,
+        opacity: 1,
+        ease: "expo.in",
+      },
       "<",
     )
     .addLabel("firstInfo");
@@ -182,6 +186,14 @@ export const animateCardReveal = () => {
 
         card.classList.remove("right-0");
         card.classList.add("left-0");
+
+        gsap.to("#extendedP1", {
+          opacity: 1,
+          display: "flex",
+          y: 0,
+          duration: 1,
+        });
+        gsap.set("#simpleP1", { opacity: 0, display: "none" });
 
         const div = document.getElementById("innerContent");
 

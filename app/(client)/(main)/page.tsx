@@ -1,11 +1,10 @@
 import { headers as getHeaders } from "next/headers";
-import { getPayload } from "payload";
-import config from "@/payload.config";
 import BackgroundVideo from "@/components/ui/backgroundVideo";
 import Hero from "@/components/ui/LandingPage/hero";
 import dynamic from "next/dynamic";
 import ScrollContext from "@/components/ui/scrollContext";
 import ScrollDownTip from "@/components/ui/LandingPage/scrollDownTip";
+import { payload } from "@/lib/payload";
 
 const ColonizationInfo = dynamic(
   () => import("@/components/ui/LandingPage/colonizationInfo"),
@@ -15,10 +14,12 @@ const Difficulties = dynamic(
   () => import("@/components/ui/LandingPage/difficulties"),
 );
 
+const Conclusion = dynamic(
+  () => import("@/components/ui/LandingPage/conclusion"),
+);
+
 export default async function HomePage() {
   const headers = await getHeaders();
-  const payloadConfig = await config;
-  const payload = await getPayload({ config: payloadConfig });
   const { user } = await payload.auth({ headers });
   console.log(user);
 
@@ -32,6 +33,11 @@ export default async function HomePage() {
     locale: "uk",
   });
 
+  const cc = await payload.findGlobal({
+    slug: "conclusion",
+    locale: "uk",
+  });
+
   return (
     <ScrollContext>
       <BackgroundVideo />
@@ -42,6 +48,7 @@ export default async function HomePage() {
       </div>
       <ColonizationInfo slides={slides} />
       <Difficulties cards={cards} />
+      <Conclusion conclusionItem={cc} />
       <ScrollDownTip />
     </ScrollContext>
   );
