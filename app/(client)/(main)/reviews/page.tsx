@@ -7,17 +7,18 @@ import { Media, User } from "@/payload-types";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 
-const REVIEWS_PER_PAGE = 5; // Кількість коментарів на сторінці
+const REVIEWS_PER_PAGE = 5;
 
 const ReviewsPage = async ({
   searchParams,
 }: {
-  searchParams: { page?: string };
+  searchParams: Promise<{ page?: string }>;
 }) => {
   const headers = await getHeaders();
   const { user } = await payload.auth({ headers });
 
-  const page = parseInt(searchParams.page || "1");
+  const resolvedSearchParams = await searchParams;
+  const page = parseInt(resolvedSearchParams.page || "1");
 
   const reviews = await payload.find({
     collection: "reviews",
