@@ -1,16 +1,58 @@
 "use client";
 
-import { useState } from "react";
+import type React from "react";
+import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { User } from "@/payload-types";
+import gsap from "gsap";
 
-const Header = ({ user }: { user: User | null }) => {
+const links = [
+  { path: "/", label: "Головна" },
+  { path: "/mars", label: "Про марс" },
+  { path: "/reviews", label: "Залишити відгук" },
+  { path: "/auth", label: "Вхід" },
+];
+
+const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const linksRef = useRef<(HTMLDivElement | null)[]>([]);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
+
+  const handleNavigation = (path: string) => (e: React.MouseEvent) => {
+    e.preventDefault();
+    gsap.globalTimeline.clear();
+    setTimeout(() => (window.location.href = path), 100);
+  };
+
+  useEffect(() => {
+    if (!linksRef.current.length) return;
+
+    linksRef.current.forEach((link) => {
+      if (!link) return;
+      const line = link.querySelector(".hover-line") as HTMLDivElement;
+      if (!line) return;
+
+      gsap.set(line, { scaleX: 0, transformOrigin: "center center" });
+
+      const onMouseEnter = () => {
+        gsap.to(line, { scaleX: 1, duration: 0.3, ease: "power2.out" });
+      };
+      const onMouseLeave = () => {
+        gsap.to(line, { scaleX: 0, duration: 0.3, ease: "power2.out" });
+      };
+
+      link.addEventListener("mouseenter", onMouseEnter);
+      link.addEventListener("mouseleave", onMouseLeave);
+
+      return () => {
+        link.removeEventListener("mouseenter", onMouseEnter);
+        link.removeEventListener("mouseleave", onMouseLeave);
+      };
+    });
+  }, []);
 
   return (
     <header
@@ -33,52 +75,72 @@ const Header = ({ user }: { user: User | null }) => {
             className="p-2 flex flex-col justify-center items-center w-8 h-8"
           >
             <span
-              className={`bg-current h-0.5 w-6 rounded-full transition-all duration-300 ease-in-out ${isMenuOpen ? "rotate-45 translate-y-1.5" : ""}`}
+              className={`bg-current h-0.5 w-6 rounded-full transition-all duration-300 ease-in-out ${
+                isMenuOpen ? "rotate-45 translate-y-1.5" : ""
+              }`}
             />
             <span
-              className={`bg-current h-0.5 w-6 rounded-full transition-all duration-300 ease-in-out my-1 ${isMenuOpen ? "opacity-0" : ""}`}
+              className={`bg-current h-0.5 w-6 rounded-full transition-all duration-300 ease-in-out my-1 ${
+                isMenuOpen ? "opacity-0" : ""
+              }`}
             />
             <span
-              className={`bg-current h-0.5 w-6 rounded-full transition-all duration-300 ease-in-out ${isMenuOpen ? "-rotate-45 -translate-y-1.5" : ""}`}
+              className={`bg-current h-0.5 w-6 rounded-full transition-all duration-300 ease-in-out ${
+                isMenuOpen ? "-rotate-45 -translate-y-1.5" : ""
+              }`}
             />
           </button>
         </div>
 
-        <nav
-          className={`md:flex md:items-center md:space-x-4 ${isMenuOpen ? "block" : "hidden"}`}
-        >
-          <div className="md:hidden absolute top-full left-0 right-0 bg-black shadow-md transition-all duration-300 ease-in-out">
-            <div className="flex flex-col p-4 space-y-4">
+        <nav className="md:flex md:items-center md:space-x-4 hidden">
+          {links.map((link, index) => (
+            <div
+              key={link.path}
+              ref={(el) => {
+                if (el) linksRef.current[index] = el;
+              }}
+              className="relative overflow-hidden cursor-pointer"
+            >
               <Link
-                href="/"
-                className="hover:text-gray-600"
-                onClick={toggleMenu}
+                href={link.path}
+                onClick={() => handleNavigation(link.path)}
+                className="relative"
               >
-                Про марс
+                {link.label}
               </Link>
-              <Link
-                href="/"
-                className="hover:text-gray-600"
-                onClick={toggleMenu}
-              >
-                Третя сторінка
-              </Link>
-              <Link
-                href={user ? "/dashboard" : "/auth"}
-                className="hover:text-gray-600"
-                onClick={toggleMenu}
-              >
-                {user ? "Акаунт" : "Вхід"}
-              </Link>
+              <div className="hover-line absolute bottom-0 left-0 w-full h-0.5 bg-current scale-x-0"></div>
             </div>
+          ))}
+        </nav>
+
+        <nav
+          className={`md:hidden fixed top-0 left-0 w-screen h-screen bg-black transition-transform duration-500 ${
+            isMenuOpen ? "translate-x-0 " : "-translate-x-full"
+          } md:relative md:translate-x-0 z-[-1] md:flex md:items-center md:space-x-4 md:bg-transparent md:h-auto`}
+        >
+          <div className="flex flex-col items-center justify-center h-full space-y-6 md:flex-row md:space-y-0 md:space-x-4">
+            {links.map((link, index) => (
+              <div
+                key={link.path}
+                className="relative overflow-hidden cursor-pointer transition-opacity duration-700 ease-in-out opacity-0 translate-y-4"
+                style={{
+                  animation: isMenuOpen
+                    ? `fadeInUp 0.3s ease-out ${index * 0.1}s forwards`
+                    : "none",
+                }}
+              >
+                <Link
+                  href={link.path}
+                  onClick={handleNavigation(link.path)}
+                  className="relative text-white text-lg"
+                >
+                  {link.label}
+                </Link>
+              </div>
+            ))}
           </div>
-          <div className="hidden md:flex md:items-center md:space-x-4">
-            <Link href="/">Про марс</Link>
-            <Link href="/">Третя сторінка</Link>
-            <Link href={user ? "/dashboard" : "/auth"}>
-              {user ? "Акаунт" : "Вхід"}
-            </Link>
-          </div>
+
+          <style jsx>{burgerStyles}</style>
         </nav>
       </div>
     </header>
@@ -86,3 +148,16 @@ const Header = ({ user }: { user: User | null }) => {
 };
 
 export default Header;
+
+const burgerStyles = `
+            @keyframes fadeInUp {
+              from {
+                opacity: 0;
+                transform: translateY(20px);
+              }
+              to {
+                opacity: 1;
+                transform: translateY(0);
+              }
+            }
+          `;

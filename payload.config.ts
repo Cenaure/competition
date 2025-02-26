@@ -14,6 +14,7 @@ import { SliderItems } from "./collections/SliderItems";
 import { Cards } from "./globals/Cards";
 import { Conclusion } from "./globals/Conclusion";
 import { Footer } from "./globals/Footer";
+import { Reviews } from "./collections/Reviews";
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
@@ -25,7 +26,7 @@ export default buildConfig({
       baseDir: path.resolve(dirname),
     },
   },
-  collections: [Users, Media, SliderItems],
+  collections: [Users, Media, SliderItems, Reviews],
   globals: [Cards, Conclusion, Footer],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || "",

@@ -1,23 +1,29 @@
-import { Footer as FooterType, Media } from "@/payload-types";
+import { Footer as FooterType, Media, User } from "@/payload-types";
 import Link from "next/link";
 import Image from "next/image";
 
 interface FooterProps {
   footerPayload: FooterType;
+  user: User | null;
 }
 
-const Footer = ({ footerPayload }: FooterProps) => {
+const Footer = async ({ footerPayload, user }: FooterProps) => {
   return (
     <footer className="py-10 text-center border-t-2">
       <div className="container mx-auto px-4 flex flex-col md:flex-row justify-between items-center">
         <div className="text-sm">{footerPayload.copyright}</div>
 
-        <nav className="flex space-x-4 my-4 md:my-0">
+        <nav className="grid grid-cols-2 space-x-4 my-4 md:my-0 text-left">
           {footerPayload.links?.map((link, index) => (
             <Link key={index} href={link.url} className="hover:underline">
               {link.label}
             </Link>
           ))}
+          {user?.role == "admin" && (
+            <Link href={"/admin"} className="hover:underline">
+              Панель адміністратора
+            </Link>
+          )}
         </nav>
 
         <div className="flex space-x-4">

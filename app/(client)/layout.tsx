@@ -14,7 +14,9 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="uk">
-      <body className={`${font.className} antialiased`}>{children}</body>
+      <body className={`${font.className} antialiased mars-scroll-container`}>
+        {children}
+      </body>
     </html>
   );
 }

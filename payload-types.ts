@@ -68,6 +68,7 @@ export interface Config {
     users: User;
     media: Media;
     'slider-items': SliderItem;
+    reviews: Review;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
@@ -77,6 +78,7 @@ export interface Config {
     users: UsersSelect<false> | UsersSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
     'slider-items': SliderItemsSelect<false> | SliderItemsSelect<true>;
+    reviews: ReviewsSelect<false> | ReviewsSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
@@ -127,7 +129,7 @@ export interface UserAuthOperations {
  */
 export interface User {
   id: string;
-  name?: string | null;
+  name: string;
   avatar?: (string | null) | Media;
   role: 'admin' | 'user';
   updatedAt: string;
@@ -174,6 +176,17 @@ export interface SliderItem {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "reviews".
+ */
+export interface Review {
+  id: string;
+  content: string;
+  author: string | User;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-locked-documents".
  */
 export interface PayloadLockedDocument {
@@ -190,6 +203,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'slider-items';
         value: string | SliderItem;
+      } | null)
+    | ({
+        relationTo: 'reviews';
+        value: string | Review;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -277,6 +294,16 @@ export interface SliderItemsSelect<T extends boolean = true> {
   content?: T;
   img?: T;
   order?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "reviews_select".
+ */
+export interface ReviewsSelect<T extends boolean = true> {
+  content?: T;
+  author?: T;
   updatedAt?: T;
   createdAt?: T;
 }

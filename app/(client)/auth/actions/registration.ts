@@ -13,6 +13,7 @@ export async function registration(
   formData: FormData,
 ): Promise<RegistrationResponse> {
   const email = formData.get("email")?.toString().trim();
+  const name = formData.get("name")?.toString().trim();
   const password = formData.get("password")?.toString().trim();
 
   if (!email || !password) {
@@ -22,7 +23,7 @@ export async function registration(
   try {
     const user = await payload.create({
       collection: "users",
-      data: { email, password, role: "user", name: "user" },
+      data: { email, password, role: "user", name: name || "user" },
     });
 
     if (!user) {

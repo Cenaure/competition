@@ -22,6 +22,8 @@ import {
   updateUser,
   changePassword,
 } from "@/app/(client)/(main)/dashboard/actions/actions";
+import Link from "next/link";
+import { redirect } from "next/navigation";
 
 export function UserDashboard({ user }: { user: User }) {
   const [updateState, updateAction, updatePending] = useActionState(
@@ -35,6 +37,18 @@ export function UserDashboard({ user }: { user: User }) {
   const securityCardRef = useTabAnimation();
 
   if (!user) return null;
+
+  async function logout() {
+    await fetch(`/api/users/logout`, {
+      method: "POST",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    redirect("/");
+  }
 
   return (
     <div className="container mx-auto px-4 py-6 sm:px-6 sm:py-10">
@@ -117,6 +131,20 @@ export function UserDashboard({ user }: { user: User }) {
                 </CardFooter>
               </form>
             </CardContent>
+          </Card>
+
+          <Card className="mt-8">
+            <div className="p-6 flex justify-between items-center">
+              <div className="space-x-4">
+                <Link href="/admin">
+                  <Button>Панель адміністратора</Button>
+                </Link>
+
+                <Button variant="outline" onClick={() => logout()}>
+                  Вийти
+                </Button>
+              </div>
+            </div>
           </Card>
         </TabsContent>
         <TabsContent value="security">

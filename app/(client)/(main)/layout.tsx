@@ -2,6 +2,7 @@ import Footer from "@/components/ui/footer";
 import Header from "@/components/ui/header";
 import { payload } from "@/lib/payload";
 import React from "react";
+import ScrollContext from "@/components/ui/scrollContext";
 import { headers as getHeaders } from "next/headers";
 
 export const metadata = {
@@ -21,10 +22,10 @@ export default async function Layout(props: { children: React.ReactNode }) {
   });
 
   return (
-    <>
-      <Header user={user} />
+    <ScrollContext>
+      <Header />
       <main>{children}</main>
-      <Footer footerPayload={footerInfo} />
-    </>
+      <Footer footerPayload={footerInfo} user={user} />
+    </ScrollContext>
   );
 }
