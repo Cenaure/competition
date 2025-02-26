@@ -15,6 +15,7 @@ import { Cards } from "./globals/Cards";
 import { Conclusion } from "./globals/Conclusion";
 import { Footer } from "./globals/Footer";
 import { Reviews } from "./collections/Reviews";
+import { Sources } from "./globals/Sources";
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
@@ -27,7 +28,7 @@ export default buildConfig({
     },
   },
   collections: [Users, Media, SliderItems, Reviews],
-  globals: [Cards, Conclusion, Footer],
+  globals: [Cards, Conclusion, Footer, Sources],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || "",
   typescript: {

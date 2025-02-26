@@ -90,11 +90,13 @@ export interface Config {
     cards: Card;
     conclusion: Conclusion;
     footer: Footer;
+    sources: Source;
   };
   globalsSelect: {
     cards: CardsSelect<false> | CardsSelect<true>;
     conclusion: ConclusionSelect<false> | ConclusionSelect<true>;
     footer: FooterSelect<false> | FooterSelect<true>;
+    sources: SourcesSelect<false> | SourcesSelect<true>;
   };
   locale: 'uk';
   user: User & {
@@ -392,6 +394,22 @@ export interface Footer {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "sources".
+ */
+export interface Source {
+  id: string;
+  links?:
+    | {
+        label: string;
+        url: string;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "cards_select".
  */
 export interface CardsSelect<T extends boolean = true> {
@@ -436,6 +454,22 @@ export interface FooterSelect<T extends boolean = true> {
     | T
     | {
         platform?: T;
+        url?: T;
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "sources_select".
+ */
+export interface SourcesSelect<T extends boolean = true> {
+  links?:
+    | T
+    | {
+        label?: T;
         url?: T;
         id?: T;
       };

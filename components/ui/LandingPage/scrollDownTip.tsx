@@ -39,7 +39,7 @@ const ScrollDownTip = () => {
 
   return (
     <div
-      className="fixed bottom-10 w-screen flex flex-col items-center justify-center opacity-90 z-[1]"
+      className="fixed bottom-10 w-screen flex flex-col items-center justify-center opacity-90 z-[1] pointer-events-none"
       id="tip"
     >
       <p>Гортайте вниз</p>
