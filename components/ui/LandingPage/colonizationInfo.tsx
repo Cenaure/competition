@@ -2,10 +2,13 @@
 
 import Image from "next/image";
 import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { useEffect, useRef } from "react";
+import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
+import { useRef } from "react";
 import { PaginatedDocs } from "payload";
 import { SliderItem } from "@/payload-types";
+import { useGSAP } from "@gsap/react";
+
+gsap.registerPlugin(ScrollTrigger, useGSAP);
 
 const ColonizationInfo = ({
   slides,
@@ -16,11 +19,9 @@ const ColonizationInfo = ({
   const slideRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 
-  gsap.registerPlugin(ScrollTrigger);
-
   const realityRef = useRef(null);
 
-  useEffect(() => {
+  useGSAP(() => {
     if (!slideRef.current || !containerRef.current) return;
 
     const totalSlides = slides.docs.length;

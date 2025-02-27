@@ -3,26 +3,26 @@
 import Image from "next/image";
 import Parallax from "../parallax";
 import { Card, CardContent, CardHeader, CardTitle } from "../card";
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 import type { Card as CardType, Media } from "@/payload-types";
-import { animateCardReveal } from "../animations/difficulties/animations";
+import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
-import { ScrollTrigger } from "gsap/all";
+import { Flip } from "gsap/Flip";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { animateCardReveal } from "../animations/difficulties/animations";
+
+gsap.registerPlugin(useGSAP, Flip, ScrollTrigger);
+
 const Difficulties = ({ cards }: { cards: CardType }) => {
   const cardRef = useRef<HTMLDivElement | null>(null);
 
-  useEffect(() => {
+  useGSAP(() => {
     const reduceMotion = window.matchMedia("(max-width: 1024px)").matches;
 
     if (!reduceMotion) {
       animateCardReveal();
     }
-
-    return () => {
-      gsap.globalTimeline.clear();
-      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
-    };
-  }, []);
+  });
 
   return (
     <>

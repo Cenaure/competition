@@ -123,7 +123,6 @@ const MarsInfoPage = () => {
       </Parallax>
 
       <div className="w-full min-h-screen relative flex flex-col justify-center items-center">
-        {/* Контейнер для контенту */}
         <div className="max-w-[1440px] mx-auto px-4 py-16 text-center space-y-10">
           <h2 className="text-4xl font-bold text-[var(--color-accent)]">
             Марс — Червона загадка

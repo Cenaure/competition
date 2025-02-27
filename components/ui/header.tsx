@@ -5,6 +5,7 @@ import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import gsap from "gsap";
+import { useRouter } from "next/navigation";
 
 const links = [
   { path: "/", label: "Головна" },
@@ -21,28 +22,34 @@ const Header = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
-  const handleNavigation = (path: string) => (e: React.MouseEvent) => {
+  const router = useRouter();
+
+  const handleRouteChange = (
+    e: React.MouseEvent<HTMLAnchorElement>,
+    path: string,
+  ) => {
     e.preventDefault();
     gsap.globalTimeline.clear();
-    setTimeout(() => (window.location.href = path), 100);
+    setTimeout(() => router.push(path), 100);
   };
 
   useEffect(() => {
     if (!linksRef.current.length) return;
 
-    linksRef.current.forEach((link) => {
-      if (!link) return;
+    const elements = linksRef.current.filter(
+      (el): el is HTMLDivElement => el !== null,
+    );
+
+    const cleanupFunctions = elements.map((link) => {
       const line = link.querySelector(".hover-line") as HTMLDivElement;
-      if (!line) return;
+      if (!line) return () => {};
 
       gsap.set(line, { scaleX: 0, transformOrigin: "center center" });
 
-      const onMouseEnter = () => {
+      const onMouseEnter = () =>
         gsap.to(line, { scaleX: 1, duration: 0.3, ease: "power2.out" });
-      };
-      const onMouseLeave = () => {
+      const onMouseLeave = () =>
         gsap.to(line, { scaleX: 0, duration: 0.3, ease: "power2.out" });
-      };
 
       link.addEventListener("mouseenter", onMouseEnter);
       link.addEventListener("mouseleave", onMouseLeave);
@@ -52,6 +59,14 @@ const Header = () => {
         link.removeEventListener("mouseleave", onMouseLeave);
       };
     });
+
+    return () => {
+      cleanupFunctions.forEach((cleanup) => cleanup());
+      elements.forEach((link) => {
+        const line = link.querySelector(".hover-line") as HTMLDivElement;
+        if (line) gsap.killTweensOf(line);
+      });
+    };
   }, []);
 
   return (
@@ -97,14 +112,14 @@ const Header = () => {
             <div
               key={link.path}
               ref={(el) => {
-                if (el) linksRef.current[index] = el;
+                linksRef.current[index] = el;
               }}
               className="relative overflow-hidden cursor-pointer"
             >
               <Link
                 href={link.path}
-                onClick={() => handleNavigation(link.path)}
                 className="relative"
+                onClick={(e) => handleRouteChange(e, link.path)}
               >
                 {link.label}
               </Link>
@@ -115,7 +130,7 @@ const Header = () => {
 
         <nav
           className={`md:hidden fixed top-0 left-0 w-screen h-screen bg-black transition-transform duration-500 ${
-            isMenuOpen ? "translate-x-0 " : "-translate-x-full"
+            isMenuOpen ? "translate-x-0" : "-translate-x-full"
           } md:relative md:translate-x-0 z-[-1] md:flex md:items-center md:space-x-4 md:bg-transparent md:h-auto`}
         >
           <div className="flex flex-col items-center justify-center h-full space-y-6 md:flex-row md:space-y-0 md:space-x-4">
@@ -131,8 +146,8 @@ const Header = () => {
               >
                 <Link
                   href={link.path}
-                  onClick={handleNavigation(link.path)}
                   className="relative text-white text-lg"
+                  onClick={(e) => handleRouteChange(e, link.path)}
                 >
                   {link.label}
                 </Link>
@@ -150,14 +165,14 @@ const Header = () => {
 export default Header;
 
 const burgerStyles = `
-            @keyframes fadeInUp {
-              from {
-                opacity: 0;
-                transform: translateY(20px);
-              }
-              to {
-                opacity: 1;
-                transform: translateY(0);
-              }
-            }
-          `;
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+`;

@@ -19,11 +19,12 @@ const Footer = async ({ footerPayload, user }: FooterProps) => {
               {link.label}
             </Link>
           ))}
-          {user?.role == "admin" && (
-            <Link href={"/admin"} className="hover:underline">
-              Панель адміністратора
-            </Link>
-          )}
+          <Link
+            href={"/admin"}
+            className={`hover:underline ${user?.role !== "admin" && "hidden"}`}
+          >
+            Панель адміністратора
+          </Link>
         </nav>
 
         <div className="flex space-x-4">
