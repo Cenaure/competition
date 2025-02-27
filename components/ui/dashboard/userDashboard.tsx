@@ -136,9 +136,11 @@ export function UserDashboard({ user }: { user: User }) {
           <Card className="mt-8">
             <div className="p-6 flex justify-between items-center">
               <div className="space-x-4">
-                <Link href="/admin">
-                  <Button>Панель адміністратора</Button>
-                </Link>
+                {user.role === "admin" && (
+                  <Link href="/admin">
+                    <Button>Панель адміністратора</Button>
+                  </Link>
+                )}
 
                 <Button variant="outline" onClick={() => logout()}>
                   Вийти
