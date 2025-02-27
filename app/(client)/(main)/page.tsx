@@ -4,6 +4,10 @@ import dynamic from "next/dynamic";
 import ScrollDownTip from "@/components/ui/LandingPage/scrollDownTip";
 import { payload } from "@/lib/payload";
 
+export const metadata = {
+  description: "Мрія людства про майбутнє",
+  title: "Beyond Earth - Головна сторінка",
+};
 const ColonizationInfo = dynamic(
   () => import("@/components/ui/LandingPage/colonizationInfo"),
 );

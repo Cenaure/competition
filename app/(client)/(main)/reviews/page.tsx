@@ -9,6 +9,11 @@ import { Button } from "@/components/ui/button";
 
 const REVIEWS_PER_PAGE = 5;
 
+export const metadata = {
+  description: "Beyond Earth",
+  title: "Beyond Earth - Залишити відгук",
+};
+
 const ReviewsPage = async ({
   searchParams,
 }: {

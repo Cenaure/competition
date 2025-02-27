@@ -5,6 +5,11 @@ import { headers as getHeaders } from "next/headers";
 import { redirect } from "next/navigation";
 import { DashboardSkeleton } from "@/components/ui/dashboard/dashboardSkeleton";
 
+export const metadata = {
+  description: "Дашборд",
+  title: "Beyond Earth - Дашборд",
+};
+
 const DashboardPage = async () => {
   const headers = await getHeaders();
   const { user } = await payload.auth({ headers });
