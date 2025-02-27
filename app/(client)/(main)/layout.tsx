@@ -4,6 +4,7 @@ import { payload } from "@/lib/payload";
 import React from "react";
 import ScrollContext from "@/components/ui/scrollContext";
 import { headers as getHeaders } from "next/headers";
+import ScrollToTop from "@/components/ui/scrollTop";
 
 export const metadata = {
   description: "Мрія людства про майбутнє",
@@ -25,6 +26,7 @@ export default async function Layout(props: { children: React.ReactNode }) {
     <ScrollContext>
       <Header />
       <main>{children}</main>
+      <ScrollToTop />
       <Footer footerPayload={footerInfo} user={user} />
     </ScrollContext>
   );
