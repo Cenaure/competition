@@ -6,11 +6,6 @@ import ScrollContext from "@/components/ui/scrollContext";
 import { headers as getHeaders } from "next/headers";
 import ScrollToTop from "@/components/ui/scrollTop";
 
-export const metadata = {
-  description: "Мрія людства про майбутнє",
-  title: "Beyond Earth - Головна сторінка",
-};
-
 export default async function Layout(props: { children: React.ReactNode }) {
   const headers = await getHeaders();
   const { user } = await payload.auth({ headers });
