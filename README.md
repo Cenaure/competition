@@ -1,6 +1,6 @@
-# blank
+# Design Competition Website
 
-blank
+Website developed to show my design and architecture skill for the competition, now abandoned 
 
 ## Attributes
 
